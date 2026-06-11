@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>실시간 세계 지진 현황 — EarthQuakeViz</title>
+  <meta name="description" content="USGS 실시간 지진 데이터를 세계지도 위에 파동·파티클·글로우 이펙트로 시각화합니다." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 풀스크린 캔버스 -->
+  <canvas id="eq-canvas" role="img" aria-label="세계 지진 분포 지도"></canvas>
+
+  <!-- ── 헤더 HUD ── -->
+  <header class="hud-header" role="banner">
+    <div class="hud-logo">
+      <span class="logo-icon" aria-hidden="true">🌍</span>
+      <span class="logo-title">실시간 지진 현황</span>
+      <span class="logo-badge" id="fps-badge" title="프레임 레이트">60 FPS</span>
+    </div>
+
+    <div class="hud-stats" role="region" aria-label="통계">
+      <div class="stat-chip">
+        <span class="stat-lbl">전체</span>
+        <span class="stat-val" id="val-total">--</span>
+      </div>
+      <div class="stat-chip chip-m5">
+        <span class="stat-lbl">M5+</span>
+        <span class="stat-val" id="val-m5">--</span>
+      </div>
+      <div class="stat-chip chip-m7">
+        <span class="stat-lbl">M7+</span>
+        <span class="stat-val" id="val-m7">--</span>
+      </div>
+      <div class="stat-chip chip-updated">
+        <span class="stat-lbl">갱신</span>
+        <span class="stat-val" id="val-updated">--</span>
+      </div>
+    </div>
+
+    <div class="hud-controls" role="group" aria-label="조회 기간">
+      <button class="period-btn" data-period="hour" aria-pressed="false">1시간</button>
+      <button class="period-btn active" data-period="day" aria-pressed="true">24시간</button>
+      <button class="period-btn" data-period="week" aria-pressed="false">7일</button>
+      <button class="period-btn sig-btn" data-period="significant" aria-pressed="false">주요 (M4.5+)</button>
+    </div>
+  </header>
+
+  <!-- ── 범례 ── -->
+  <aside class="legend" id="legend" aria-label="규모 범례">
+    <div class="legend-title">규모 (Magnitude)</div>
+    <div class="legend-items" id="legend-items"></div>
+    <div class="legend-hint">클릭 → 상세정보</div>
+  </aside>
+
+  <!-- ── 상세 패널 ── -->
+  <aside
+    class="detail-panel"
+    id="detail-panel"
+    aria-label="지진 상세 정보"
+    aria-hidden="true"
+  >
+    <button class="dp-close" id="dp-close" aria-label="닫기">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="2" y1="2" x2="14" y2="14"/><line x1="14" y1="2" x2="2" y2="14"/>
+      </svg>
+    </button>
+    <div class="dp-content" id="dp-content"></div>
+  </aside>
+
+  <!-- ── 로딩 오버레이 ── -->
+  <div class="loading-overlay" id="loading-overlay" aria-live="polite" aria-busy="true">
+    <div class="loading-ring"></div>
+    <p class="loading-text">지진 데이터 불러오는 중…</p>
+  </div>
+
+  <!-- ── 호버 툴팁 ── -->
+  <div class="eq-tooltip" id="eq-tooltip" role="tooltip" aria-hidden="true"></div>
+
+  <script src="https://unpkg.com/topojson-client@3/dist/topojson.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

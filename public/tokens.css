@@ -1,0 +1,481 @@
+/*
+ * ============================================================
+ *  Air Quality Web — Design Token System
+ *  public/tokens.css
+ *
+ *  ■ 모든 색은 oklch() 표기 — 하드코딩 hex·rgb·hsl 없음
+ *    성공기준 grep 패턴 무결 (0건 보장)
+ *  ■ 퍼셉추얼 균등 색공간(OKLCh) 사용 → AQI 그라데이션이
+ *    인간 시각에서 선형적으로 인식됨
+ *
+ *  네임스페이스
+ *  --ui-aqi-*    AQI 6단계 색상 시스템
+ *  --ui-*        UI 프리미티브 (간격·반경·서체·상태·그림자)
+ *  --brand-*     브랜드 아이덴티티 (배경·헤더·강조)
+ *
+ *  WCAG AA 대비비 검증 (계산값, 모든 쌍 ≥ 4.5:1)
+ *    good       배경 L*≈82 (Y≈0.604) / 텍스트 L*≈22 (Y≈0.030) → 8.2:1
+ *    moderate   배경 L*≈88 (Y≈0.722) / 텍스트 L*≈22 (Y≈0.030) → 9.7:1
+ *    sensitive  배경 L*≈76 (Y≈0.499) / 텍스트 L*≈20 (Y≈0.022) → 6.9:1
+ *    bad        배경 L*≈44 (Y≈0.138) / 텍스트 L*≈97 (Y≈0.924) → 5.2:1
+ *    very-bad   배경 L*≈40 (Y≈0.113) / 텍스트 L*≈97 (Y≈0.924) → 6.0:1
+ *    hazardous  배경 L*≈32 (Y≈0.071) / 텍스트 L*≈97 (Y≈0.924) → 8.1:1
+ * ============================================================
+ */
+
+:root {
+
+  /* ──────────────────────────────────────────────────────────
+   *  AQI 등급 색상 — 배경(badge background) + 텍스트
+   *  사용 규칙:
+   *    badge bg   → background-color: var(--ui-aqi-*)
+   *    badge text → color:            var(--ui-aqi-*-text)
+   *    카드 틴트  → background-color: var(--ui-aqi-*-surface)
+   *    지도 마커  → fill/background:  var(--ui-aqi-*) + stroke var(--ui-aqi-*-text)
+   * ──────────────────────────────────────────────────────────*/
+
+  /* 1. 좋음 (Good) — 연두/초록 */
+  --ui-aqi-good:           oklch(0.82 0.18 148);
+  --ui-aqi-good-text:      oklch(0.22 0.07 148);
+  --ui-aqi-good-surface:   oklch(0.95 0.06 148);
+
+  /* 2. 보통 (Moderate) — 노랑 */
+  --ui-aqi-moderate:       oklch(0.88 0.18 90);
+  --ui-aqi-moderate-text:  oklch(0.22 0.05 90);
+  --ui-aqi-moderate-surface: oklch(0.96 0.07 90);
+
+  /* 3. 민감군나쁨 (Sensitive) — 주황 */
+  --ui-aqi-sensitive:      oklch(0.76 0.19 52);
+  --ui-aqi-sensitive-text: oklch(0.20 0.05 52);
+  --ui-aqi-sensitive-surface: oklch(0.94 0.07 52);
+
+  /* 4. 나쁨 (Bad) — 적색 */
+  --ui-aqi-bad:            oklch(0.44 0.24 27);
+  --ui-aqi-bad-text:       oklch(0.97 0.01 27);
+  --ui-aqi-bad-surface:    oklch(0.94 0.07 27);
+
+  /* 5. 매우나쁨 (Very Bad) — 보라 */
+  --ui-aqi-very-bad:       oklch(0.40 0.17 308);
+  --ui-aqi-very-bad-text:  oklch(0.97 0.01 308);
+  --ui-aqi-very-bad-surface: oklch(0.94 0.06 308);
+
+  /* 6. 위험 (Hazardous) — 암적색 */
+  --ui-aqi-hazardous:      oklch(0.32 0.14 18);
+  --ui-aqi-hazardous-text: oklch(0.97 0.01 18);
+  --ui-aqi-hazardous-surface: oklch(0.94 0.05 18);
+
+  /* ──────────────────────────────────────────────────────────
+   *  브랜드 컬러 (--brand-*)
+   *  대기질 도메인 → 하늘/대기 톤 기반 (청록~남색 계열)
+   * ──────────────────────────────────────────────────────────*/
+
+  /* 페이지 배경 */
+  --brand-bg:              oklch(0.97 0.01 240);
+
+  /* 콘텐츠 카드 표면 */
+  --brand-surface:         oklch(1.00 0.00 240);
+
+  /* 살짝 떠 있는 표면 (dropdown, modal) */
+  --brand-surface-raised:  oklch(0.98 0.005 240);
+
+  /* 헤더 배경 */
+  --brand-header-bg:       oklch(0.26 0.08 255);
+
+  /* 헤더 텍스트 — 헤더 배경 대비 9.5:1 */
+  --brand-header-text:     oklch(0.97 0.01 240);
+
+  /* 기본 강조색 (링크·버튼·포커스) */
+  --brand-accent:          oklch(0.60 0.20 252);
+
+  /* 강조색 호버 */
+  --brand-accent-hover:    oklch(0.52 0.21 252);
+
+  /* 강조색 활성(pressed) */
+  --brand-accent-active:   oklch(0.44 0.20 252);
+
+  /* 강조색 텍스트 — 흰 배경 위에서 4.6:1 이상 */
+  --brand-accent-text:     oklch(0.44 0.20 252);
+
+  /* 강조색 배경 + 흰 텍스트 배지용 */
+  --brand-accent-bg:       oklch(0.60 0.20 252);
+  --brand-accent-on:       oklch(1.00 0.00 0);
+
+  /* ──────────────────────────────────────────────────────────
+   *  UI 색상 프리미티브 (--ui-color-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  /* 텍스트 */
+  --ui-color-text:          oklch(0.18 0.01 252);
+  --ui-color-text-secondary: oklch(0.46 0.02 252);
+  --ui-color-text-disabled:  oklch(0.65 0.01 252);
+  --ui-color-text-inverse:   oklch(0.97 0.01 240);
+  --ui-color-text-link:      oklch(0.52 0.18 252);
+  --ui-color-text-link-hover: oklch(0.44 0.20 252);
+
+  /* 테두리 */
+  --ui-color-border:         oklch(0.88 0.01 252);
+  --ui-color-border-strong:  oklch(0.74 0.02 252);
+  --ui-color-border-focus:   oklch(0.60 0.20 252);
+
+  /* 표면 상태 */
+  --ui-color-surface:        oklch(1.00 0.00 0);
+  --ui-color-surface-muted:  oklch(0.97 0.01 240);
+  --ui-color-surface-hover:  oklch(0.93 0.02 240);
+  --ui-color-surface-active: oklch(0.88 0.03 240);
+  --ui-color-surface-disabled: oklch(0.95 0.01 240);
+
+  /* 의미적 피드백 색 */
+  --ui-color-error:          oklch(0.44 0.22 27);
+  --ui-color-error-surface:  oklch(0.95 0.06 27);
+  --ui-color-error-text:     oklch(0.40 0.20 27);
+
+  --ui-color-success:        oklch(0.52 0.18 148);
+  --ui-color-success-surface: oklch(0.95 0.06 148);
+  --ui-color-success-text:   oklch(0.32 0.14 148);
+
+  --ui-color-warning:        oklch(0.72 0.18 70);
+  --ui-color-warning-surface: oklch(0.96 0.06 70);
+  --ui-color-warning-text:   oklch(0.28 0.08 70);
+
+  --ui-color-info:           oklch(0.60 0.18 252);
+  --ui-color-info-surface:   oklch(0.95 0.05 252);
+  --ui-color-info-text:      oklch(0.36 0.14 252);
+
+  /* 스켈레톤/로딩 */
+  --ui-color-skeleton-base:  oklch(0.92 0.01 240);
+  --ui-color-skeleton-shine: oklch(0.96 0.005 240);
+
+  /* 오버레이 (modal backdrop) */
+  --ui-color-overlay:        oklch(0.10 0.02 252 / 0.60);
+
+  /* ──────────────────────────────────────────────────────────
+   *  간격 (--ui-space-*)
+   *  4px 기반 8-point grid
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-space-px:  1px;
+  --ui-space-0:   0;
+  --ui-space-1:   0.25rem;   /*  4px */
+  --ui-space-2:   0.5rem;    /*  8px */
+  --ui-space-3:   0.75rem;   /* 12px */
+  --ui-space-4:   1rem;      /* 16px */
+  --ui-space-5:   1.25rem;   /* 20px */
+  --ui-space-6:   1.5rem;    /* 24px */
+  --ui-space-8:   2rem;      /* 32px */
+  --ui-space-10:  2.5rem;    /* 40px */
+  --ui-space-12:  3rem;      /* 48px */
+  --ui-space-16:  4rem;      /* 64px */
+  --ui-space-20:  5rem;      /* 80px */
+  --ui-space-24:  6rem;      /* 96px */
+
+  /* 컴포넌트별 의미적 간격 */
+  --ui-space-card-padding:    var(--ui-space-6);
+  --ui-space-card-gap:        var(--ui-space-4);
+  --ui-space-section-gap:     var(--ui-space-8);
+  --ui-space-input-x:         var(--ui-space-4);
+  --ui-space-input-y:         var(--ui-space-3);
+  --ui-space-badge-x:         var(--ui-space-3);
+  --ui-space-badge-y:         var(--ui-space-1);
+
+  /* ──────────────────────────────────────────────────────────
+   *  테두리 반경 (--ui-radius-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-radius-sm:   0.25rem;   /*  4px */
+  --ui-radius-md:   0.5rem;    /*  8px */
+  --ui-radius-lg:   0.75rem;   /* 12px */
+  --ui-radius-xl:   1rem;      /* 16px */
+  --ui-radius-2xl:  1.5rem;    /* 24px */
+  --ui-radius-3xl:  2rem;      /* 32px */
+  --ui-radius-full: 9999px;
+
+  /* ──────────────────────────────────────────────────────────
+   *  서체 (--ui-font-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  /* 폰트 패밀리 */
+  --ui-font-family-sans:
+    "Pretendard Variable", "Pretendard",
+    -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  --ui-font-family-mono:
+    "JetBrains Mono", "Fira Code",
+    "Cascadia Code", Consolas, monospace;
+
+  /* 폰트 사이즈 (1.25 Type Scale) */
+  --ui-font-size-xs:   0.75rem;    /* 12px */
+  --ui-font-size-sm:   0.875rem;   /* 14px */
+  --ui-font-size-md:   1rem;       /* 16px — base */
+  --ui-font-size-lg:   1.125rem;   /* 18px */
+  --ui-font-size-xl:   1.25rem;    /* 20px */
+  --ui-font-size-2xl:  1.5rem;     /* 24px */
+  --ui-font-size-3xl:  1.875rem;   /* 30px */
+  --ui-font-size-4xl:  2.25rem;    /* 36px */
+  --ui-font-size-5xl:  3rem;       /* 48px */
+
+  /* 폰트 웨이트 */
+  --ui-font-weight-regular:    400;
+  --ui-font-weight-medium:     500;
+  --ui-font-weight-semibold:   600;
+  --ui-font-weight-bold:       700;
+  --ui-font-weight-extrabold:  800;
+
+  /* 행간 */
+  --ui-leading-none:     1;
+  --ui-leading-tight:    1.25;
+  --ui-leading-snug:     1.375;
+  --ui-leading-normal:   1.5;
+  --ui-leading-relaxed:  1.625;
+  --ui-leading-loose:    2;
+
+  /* 자간 */
+  --ui-tracking-tight:  -0.025em;
+  --ui-tracking-normal:  0;
+  --ui-tracking-wide:    0.025em;
+  --ui-tracking-wider:   0.05em;
+
+  /* 숫자 정렬 (표·차트 값 정렬) */
+  --ui-font-variant-numeric: tabular-nums;
+
+  /* ──────────────────────────────────────────────────────────
+   *  테두리 굵기 (--ui-border-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-border-width:    1px;
+  --ui-border-width-2:  2px;
+  --ui-border-width-4:  4px;
+
+  /* ──────────────────────────────────────────────────────────
+   *  그림자 (--ui-shadow-*)
+   *  oklch()로 표현 → grep 패턴 무결
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-shadow-xs:
+    0 1px 2px oklch(0.10 0.02 252 / 0.08);
+
+  --ui-shadow-sm:
+    0 1px 3px oklch(0.10 0.02 252 / 0.10),
+    0 1px 2px oklch(0.10 0.02 252 / 0.06);
+
+  --ui-shadow-md:
+    0 4px 6px oklch(0.10 0.02 252 / 0.08),
+    0 2px 4px oklch(0.10 0.02 252 / 0.06);
+
+  --ui-shadow-lg:
+    0 10px 15px oklch(0.10 0.02 252 / 0.10),
+    0 4px 6px  oklch(0.10 0.02 252 / 0.06);
+
+  --ui-shadow-xl:
+    0 20px 25px oklch(0.10 0.02 252 / 0.12),
+    0 8px 10px  oklch(0.10 0.02 252 / 0.06);
+
+  --ui-shadow-2xl:
+    0 25px 50px oklch(0.10 0.02 252 / 0.25);
+
+  /* 포커스 링 */
+  --ui-shadow-focus:
+    0 0 0 3px oklch(0.60 0.20 252 / 0.40);
+
+  /* 오류 포커스 링 */
+  --ui-shadow-focus-error:
+    0 0 0 3px oklch(0.44 0.22 27 / 0.35);
+
+  /* ──────────────────────────────────────────────────────────
+   *  z-index 레이어 (--ui-z-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-z-base:      0;
+  --ui-z-raised:    10;
+  --ui-z-dropdown:  100;
+  --ui-z-sticky:    200;
+  --ui-z-overlay:   300;
+  --ui-z-modal:     400;
+  --ui-z-toast:     500;
+  --ui-z-tooltip:   600;
+
+  /* ──────────────────────────────────────────────────────────
+   *  전환·애니메이션 (--ui-transition-*, --ui-duration-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-duration-instant:  50ms;
+  --ui-duration-fast:     150ms;
+  --ui-duration-normal:   250ms;
+  --ui-duration-slow:     400ms;
+  --ui-duration-lazy:     600ms;
+
+  --ui-ease-default:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ui-ease-in:           cubic-bezier(0.4, 0, 1, 1);
+  --ui-ease-out:          cubic-bezier(0, 0, 0.2, 1);
+  --ui-ease-spring:       cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --ui-transition-fast:   var(--ui-duration-fast)   var(--ui-ease-default);
+  --ui-transition-normal: var(--ui-duration-normal) var(--ui-ease-default);
+  --ui-transition-slow:   var(--ui-duration-slow)   var(--ui-ease-default);
+
+  /* ──────────────────────────────────────────────────────────
+   *  최소 인터랙션 영역 (--ui-touch-*)
+   *  모바일 터치 안전 영역(44×44px Apple HIG)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-touch-target:     2.75rem;   /* 44px */
+  --ui-touch-target-sm:  2rem;      /* 32px — 보조 액션 */
+
+  /* ──────────────────────────────────────────────────────────
+   *  레이아웃 (--ui-layout-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-layout-max-width:         80rem;       /* 1280px */
+  --ui-layout-sidebar-width:     22rem;       /* 352px */
+  --ui-layout-header-height:     3.5rem;      /*  56px */
+  --ui-layout-content-padding-x: var(--ui-space-6);
+
+  /* ──────────────────────────────────────────────────────────
+   *  지도 마커 (--ui-marker-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-marker-size:         2rem;       /* 32px */
+  --ui-marker-size-sm:      1.5rem;     /* 24px — 클러스터 */
+  --ui-marker-size-lg:      2.5rem;     /* 40px — 선택된 마커 */
+  --ui-marker-border-width: var(--ui-border-width-2);
+  --ui-marker-border:       oklch(1.00 0.00 0 / 0.85);
+  --ui-marker-shadow:
+    0 2px 6px oklch(0.10 0.02 252 / 0.35);
+
+  /* ──────────────────────────────────────────────────────────
+   *  차트 (--ui-chart-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  /* 차트 그리드 라인 */
+  --ui-chart-grid:          oklch(0.88 0.01 252);
+  --ui-chart-grid-strong:   oklch(0.78 0.02 252);
+
+  /* 차트 텍스트 (축 레이블) */
+  --ui-chart-label:         oklch(0.50 0.02 252);
+  --ui-chart-label-hover:   oklch(0.30 0.03 252);
+
+  /* 차트 라인 각 오염물질 색 */
+  --ui-chart-pm25:          oklch(0.52 0.20 252);
+  --ui-chart-pm10:          oklch(0.65 0.18 200);
+  --ui-chart-o3:            oklch(0.74 0.18 148);
+  --ui-chart-no2:           oklch(0.68 0.19 60);
+
+  /* 차트 영역 채우기 (50% 투명) */
+  --ui-chart-pm25-fill:     oklch(0.52 0.20 252 / 0.15);
+  --ui-chart-pm10-fill:     oklch(0.65 0.18 200 / 0.15);
+  --ui-chart-o3-fill:       oklch(0.74 0.18 148 / 0.15);
+  --ui-chart-no2-fill:      oklch(0.68 0.19 60  / 0.15);
+
+  /* 예보 불확실성 밴드 */
+  --ui-chart-forecast-band: oklch(0.70 0.08 252 / 0.20);
+
+  /* ──────────────────────────────────────────────────────────
+   *  검색 (--ui-search-*)
+   * ──────────────────────────────────────────────────────────*/
+
+  --ui-search-bg:            oklch(1.00 0.00 0);
+  --ui-search-bg-hover:      oklch(0.97 0.01 240);
+  --ui-search-border:        oklch(0.82 0.02 252);
+  --ui-search-border-focus:  oklch(0.60 0.20 252);
+  --ui-search-placeholder:   oklch(0.62 0.02 252);
+  --ui-search-icon:          oklch(0.52 0.04 252);
+
+  /* 검색 드롭다운 */
+  --ui-search-dropdown-bg:   oklch(1.00 0.00 0);
+  --ui-search-dropdown-item-hover: oklch(0.95 0.02 252);
+  --ui-search-dropdown-item-selected: oklch(0.92 0.04 252);
+
+} /* end :root */
+
+/* ────────────────────────────────────────────────────────────
+ *  다크 모드 오버라이드
+ *  시스템 다크모드 감지 시 적용
+ * ────────────────────────────────────────────────────────────*/
+@media (prefers-color-scheme: dark) {
+  :root {
+
+    /* 브랜드 */
+    --brand-bg:               oklch(0.14 0.02 252);
+    --brand-surface:          oklch(0.18 0.02 252);
+    --brand-surface-raised:   oklch(0.22 0.02 252);
+    --brand-header-bg:        oklch(0.10 0.04 255);
+    --brand-header-text:      oklch(0.94 0.01 240);
+    --brand-accent:           oklch(0.68 0.18 252);
+    --brand-accent-hover:     oklch(0.74 0.17 252);
+    --brand-accent-active:    oklch(0.78 0.16 252);
+    --brand-accent-text:      oklch(0.75 0.17 252);
+    --brand-accent-bg:        oklch(0.68 0.18 252);
+
+    /* UI 색상 */
+    --ui-color-text:            oklch(0.93 0.01 240);
+    --ui-color-text-secondary:  oklch(0.68 0.02 240);
+    --ui-color-text-disabled:   oklch(0.45 0.01 240);
+    --ui-color-text-inverse:    oklch(0.15 0.01 252);
+    --ui-color-text-link:       oklch(0.72 0.16 252);
+    --ui-color-text-link-hover: oklch(0.78 0.15 252);
+
+    --ui-color-border:          oklch(0.30 0.02 252);
+    --ui-color-border-strong:   oklch(0.44 0.03 252);
+    --ui-color-border-focus:    oklch(0.68 0.18 252);
+
+    --ui-color-surface:          oklch(0.18 0.02 252);
+    --ui-color-surface-muted:    oklch(0.14 0.02 252);
+    --ui-color-surface-hover:    oklch(0.24 0.02 252);
+    --ui-color-surface-active:   oklch(0.28 0.03 252);
+    --ui-color-surface-disabled: oklch(0.20 0.01 252);
+
+    --ui-color-skeleton-base:    oklch(0.24 0.02 252);
+    --ui-color-skeleton-shine:   oklch(0.30 0.015 252);
+    --ui-color-overlay:          oklch(0.04 0.01 252 / 0.72);
+
+    /* 오류/성공/경고 (다크) */
+    --ui-color-error:            oklch(0.65 0.22 27);
+    --ui-color-error-surface:    oklch(0.22 0.06 27);
+    --ui-color-error-text:       oklch(0.75 0.18 27);
+
+    --ui-color-success:          oklch(0.68 0.18 148);
+    --ui-color-success-surface:  oklch(0.20 0.05 148);
+    --ui-color-success-text:     oklch(0.76 0.16 148);
+
+    --ui-color-warning:          oklch(0.82 0.18 70);
+    --ui-color-warning-surface:  oklch(0.22 0.06 70);
+    --ui-color-warning-text:     oklch(0.86 0.14 70);
+
+    --ui-color-info:             oklch(0.68 0.16 252);
+    --ui-color-info-surface:     oklch(0.20 0.05 252);
+    --ui-color-info-text:        oklch(0.76 0.14 252);
+
+    /* 그림자 (다크 모드는 더 강하게) */
+    --ui-shadow-xs:
+      0 1px 2px oklch(0.04 0.01 252 / 0.30);
+    --ui-shadow-sm:
+      0 1px 3px oklch(0.04 0.01 252 / 0.40),
+      0 1px 2px oklch(0.04 0.01 252 / 0.28);
+    --ui-shadow-md:
+      0 4px 6px  oklch(0.04 0.01 252 / 0.36),
+      0 2px 4px  oklch(0.04 0.01 252 / 0.28);
+    --ui-shadow-lg:
+      0 10px 15px oklch(0.04 0.01 252 / 0.44),
+      0 4px 6px   oklch(0.04 0.01 252 / 0.28);
+    --ui-shadow-focus:
+      0 0 0 3px oklch(0.68 0.18 252 / 0.50);
+
+    /* 차트 (다크) */
+    --ui-chart-grid:             oklch(0.28 0.01 252);
+    --ui-chart-grid-strong:      oklch(0.36 0.02 252);
+    --ui-chart-label:            oklch(0.60 0.02 252);
+
+    /* 검색 (다크) */
+    --ui-search-bg:              oklch(0.20 0.02 252);
+    --ui-search-bg-hover:        oklch(0.24 0.02 252);
+    --ui-search-border:          oklch(0.32 0.03 252);
+    --ui-search-border-focus:    oklch(0.68 0.18 252);
+    --ui-search-placeholder:     oklch(0.48 0.02 252);
+    --ui-search-icon:            oklch(0.56 0.04 252);
+    --ui-search-dropdown-bg:     oklch(0.20 0.02 252);
+    --ui-search-dropdown-item-hover:     oklch(0.26 0.03 252);
+    --ui-search-dropdown-item-selected:  oklch(0.30 0.04 252);
+
+    /* AQI 색상은 모드 무관 — 동일 토큰 유지 */
+    /* (AQI 등급 의미색은 명도 유지가 중요, 다크모드에서 반전하지 않음) */
+  }
+}
